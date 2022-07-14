@@ -1,6 +1,6 @@
-package ru.javarush.cryptoanaliser.sapun.app;
+package ru.javarush.cryptoanaliser.sapun.toplevel;
 
-import ru.javarush.cryptoanaliser.sapun.Result;
+import ru.javarush.cryptoanaliser.sapun.entity.Result;
 import ru.javarush.cryptoanaliser.sapun.controller.MainController;
 
 import java.util.Arrays;
@@ -13,8 +13,9 @@ public class Application {
     }
 
     public Result run(String[] args) {
-        String command = args[0];
-        String[] parameters = Arrays.copyOfRange(args, 1, args.length);
+        //encode text.txt encoded.txt 45
+        String command = args[0]; //encode
+        String[] parameters = Arrays.copyOfRange(args, 1, args.length); //text.txt encoded.txt 45
         return mainController.execute(command, parameters);
     }
 }
