@@ -8,23 +8,45 @@ import ru.javarush.cryptoanaliser.sapun.util.PathFinder;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 
+import static ru.javarush.cryptoanaliser.sapun.constans.Strings.ALPHABET;
+
 public class Encoder implements Action {
+
     @Override
     public Result execute(String[] parameters) {
-        //TODO need dev logic encrypt
         String txtFile = parameters[0];
-        String encryptedFile = parameters[0];
-        Path path = Path.of(PathFinder.getRoot() + txtFile);
+        String encryptedFile = parameters[1];
+        Path inputPath = Path.of(PathFinder.getRoot() + txtFile);
         try {
-            List<String> strings = Files.readAllLines(path);
+            List<String> strings = Files.readAllLines(inputPath);
+            List<String> totalResult = new ArrayList<>();
             for (String string : strings) {
-                System.out.println(string);
+                char[] chars = string.toCharArray();
+                char[] result = new char[chars.length];
+                for (int i = 0; i < chars.length; i++) {
+                    result[i] = encodeChar(chars[i]);
+                }
+                totalResult.add(new String(result));
             }
+
+            Path outPath = Path.of(PathFinder.getRoot() + encryptedFile);
+            Files.write(outPath, totalResult);
         } catch (IOException e) {
-            throw new ApplicationException("IO error",e);
+            throw new ApplicationException("IO error", e);
         }
-        return new Result(ResultCode.OK, "read all bytes" + path);
+        return new Result(ResultCode.OK, "read all bytes" + inputPath);
+    }
+
+    private char encodeChar(char element) {
+        if (!ALPHABET.contains(String.valueOf(element))) {
+            return element;
+        }
+
+        int index = ALPHABET.indexOf(element);
+        int neededIndex = (index + KEY) % ALPHABET.length();
+        return ALPHABET.charAt(neededIndex);
     }
 }
