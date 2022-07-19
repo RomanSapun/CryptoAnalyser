@@ -1,12 +1,13 @@
 package ru.javarush.cryptoanaliser.sapun.controller;
 
-import ru.javarush.cryptoanaliser.sapun.commands.Action;
-import ru.javarush.cryptoanaliser.sapun.commands.Decoder;
-import ru.javarush.cryptoanaliser.sapun.commands.Encoder;
+import ru.javarush.cryptoanaliser.sapun.commands.*;
 
 public enum Actions {
     ENCODE(new Encoder()),
-    DECODE(new Decoder());
+    DECODE(new Decoder()),
+    BRUTEFORCE(new BrutForce()),
+    STATISTIC(new StatisticAnalysis())
+    ;
 
     private final Action action;
 
