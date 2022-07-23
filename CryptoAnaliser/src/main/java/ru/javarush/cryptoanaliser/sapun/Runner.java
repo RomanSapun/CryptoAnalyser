@@ -6,7 +6,7 @@ import ru.javarush.cryptoanaliser.sapun.entity.Result;
 
 
 public class Runner {
-    public static void main(String[] args) {
+    public static void start(String[] args) {
         MainController mainController = new MainController();
         //encode text.txt encoded.txt 45
         Application application = new Application(mainController);
