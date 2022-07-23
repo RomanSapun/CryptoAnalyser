@@ -46,7 +46,7 @@ public class Decoder implements Action{
 
         int index = ALPHABET.indexOf(element);
         int neededIndex = (index - KEY);
-        if (neededIndex < 0){
+        while (neededIndex < 0){
             neededIndex += ALPHABET.length();
         }
         return ALPHABET.charAt(neededIndex);
